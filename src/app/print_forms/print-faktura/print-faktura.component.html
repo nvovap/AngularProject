@@ -1,0 +1,215 @@
+
+<button class="btn btn-info" (click)='downloadPDF()'>download PDF</button>
+
+<!-- 
+<div>
+  
+    <h5>Wystawiono dnia 31-01-2019, Warszawa</h5>
+    <div class="row">
+        <div class="col-6">
+            <img src="../../../../assets/img/logo_MaxFood@3x.png" alt="" width="200px" height="200px">
+        </div>
+        <div class="col-6">
+            <hr style="border: 2px solid rgb(177, 177, 177)">
+            <h3><b>Faktura VAT nr 7/1/2019</b></h3>
+            <table>
+                <tr>
+                    <td>Data dostawy*: </td>
+                    <td>1-01-2019</td>
+                </tr>
+                <tr>
+                    <td>Sposób zapłaty: </td>
+                    <td>Przelew</td>
+                </tr>
+                <tr>
+                    <td>Termin płatności: </td>
+                    <td>28-02-2019</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <hr style="border: 1px solid rgb(177, 177, 177)">
+            <h3><b>Sprzedawca:</b></h3>
+            <table>
+                <tr>Cerux Spółka Z Ograniczoną Odpowiedzialnością</tr>
+                <tr>ul.Górczewska 53</tr>
+                <tr>01-401 Warszawa</tr>
+                <tr>NIP 5213672246</tr>
+                <tr>Tel.</tr>
+            </table>
+        </div>
+        <div class="col-6">
+            <hr style="border: 1px solid rgb(177, 177, 177)">
+            <h3><b>Nabywca:</b></h3>
+            <table>
+                <tr>Mila Spółka Akcyjna (dawniej: Market - Detal Spółka Z Ograniczoną Odpowiedzialnością Spółka
+                    Jawna)</tr>
+                <tr>ul.Górczewska 53</tr>
+                <tr>01-401 Warszawa</tr>
+                <tr>NIP 5213672246</tr>
+                <tr>Tel.</tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr style="border: 2px solid rgb(177, 177, 177)">
+            <h3><b>POZYCJE FAKTURY</b></h3>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="">
+                        <th class="text-center">
+                            lp.
+                        </th>
+                        <th width="100%" class="text-left">
+                            name towaru lub usługi
+                        </th>
+                        <th class="text-center">
+                            PKWiU
+                        </th>
+                        <th class="text-center">
+                            Ilość
+                        </th>
+                        <th class="text-center">
+                            Jednostka
+                        </th>
+                        <th class="text-center">
+                            Cena jend.
+                        </th>
+                        <th *ngIf="faktura.discount" class="text-center">
+                            Rabat %
+                        </th>
+                        <th *ngIf="faktura.discount" class="text-center">
+                            Po rabacie
+                        </th>
+                        <th class="text-center">
+                            VAT
+                        </th>
+                        <th width="100%" class="text-center">
+                            Wartość (netto)
+                        </th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of faktura.tovar">
+                            <td class="text-center">
+                                {{item.npp}}
+                            </td>
+
+                            <td>{{item.name}}</td>
+
+                            <td class="text-center">
+                                {{item.PKWiU}}
+                            </td>
+
+                            <td class="text-center">
+                                {{item.quantity}}
+                            </td>
+
+                            <td class="text-center">{{item.unit}}</td>
+
+                            <td class="text-center">{{item.price}}</td>
+
+
+                            <td *ngIf="faktura.discount" class="text-center">{{item.discount}}</td>
+
+                            <td *ngIf="faktura.discount" class="text-center">{{item.priceDiscount}}</td>
+
+                            <td class="text-center">{{item.VAT}}</td>
+
+                            <td class="text-center">{{item.summa}}</td>
+                        
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr style="border: 2px solid rgb(177, 177, 177)">
+            <h3><b>PODSUMOWANIE</b></h3>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <th width="40%"></th>
+                        <th class="text-center"><b>Stawka VAT</b></th>
+                        <th class="text-right"><b>Wartość netto</b></th>
+                        <th class="text-right"><b>VAT</b></th>
+                        <th class="text-right"><b>Wartość brutto</b></th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of faktura.podsumowanie">
+                            <td></td>
+                            <td class="text-center">{{item.satavkaVAT}}</td>
+                            <td class="text-right">{{item.netto | number:'1.2'}}</td>
+                            <td class="text-right">{{item.VAT | number:'1.2'}}</td>
+                            <td class="text-right">{{item.brutto | number:'1.2'}}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-right"><b>Razem:</b></td>
+                            <td></td>
+                            <td class="text-right"><b>{{faktura.tbSumma.netto | number:'1.2'}}</b></td>
+                            <td class="text-right"><b>{{faktura.tbSumma.VAT | number:'1.2'}}</b></td>
+                            <td class="text-right"><b>{{faktura.tbSumma.brutto | number:'1.2'}}</b></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right"><b>Zapłacono:</b></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-right">{{faktura.tbSumma.paid| number:'1.2'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right"><b>Pozostało do zapłaty:</b></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-right">{{faktura.tbSumma.brutto - faktura.tbSumma.paid| number:'1.2'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right"><b>Słownie:</b></td>
+                            <td colspan="4" class="text-right"><b>{{faktura.tbSumma.summaInWords}}</b></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right"><b>Konto bankowe:</b></td>
+                            <td colspan="4" class="text-right">Bank Millennium S.A. 25 1160 2202 0000 0002 6540
+                                9620</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right"><b>Uwagi:</b></td>
+                            <td colspan="4" class="text-right">
+                                Zamówienie nr
+                                4500265737
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr style="border: 2px solid rgb(177, 177, 177)">
+        </div>
+        <div class="col-6">
+            <h5 class="text-center">Faktura bez podpisu odbiorcy</h5>
+        </div>
+        <div class="col-6">
+            <h5 class="text-center">Osoba upoważniona do wystawienia faktury VAT</h5>
+            <h5 class="text-center"><b>Oleksandr Honcharov</b></h5>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h5>* Data dostawy rozumiana jest jako data dokonania lub zakończenia dostawy towarów/wykonania usług</h5>
+    <h5 class="text-right">strona 1 z 1</h5>
+    
+
+</div> -->

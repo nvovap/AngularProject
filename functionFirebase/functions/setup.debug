@@ -1,0 +1,75 @@
+
+export GOOGLE_APPLICATION_CREDENTIALS = "/Users/nvovap/Documents/AngularProjects/ceruxtest-key.json"
+
+
+export GOOGLE_APPLICATION_CREDENTIALS="/Users/nvovap/Documents/AngularProjects/ceruxtest-key.json"
+
+
+
+echo $GOOGLE_APPLICATION_CREDENTIALS
+
+
+{
+  "apiKey": "",
+  "databaseURL": "",
+  "storageBucket": "",
+  "authDomain": "",
+  "messagingSenderId": "",
+  "projectId": ""
+}
+
+
+
+
+
+
+
+
+ sudo functions  deploy --trigger-http --timeout 600s setNumberDocuments
+
+
+ functions inspect setNumberDocuments
+
+
+
+ functions call setNumberDocuments --data='{ city: '',currency: 'eur',currentPrice: 'netto',dateDocument: '2019-02-06T11:58:29.996Z',dateInvoce: '2019-02-06T11:58:29.996Z',id: '9fbccd67-f0a1-4d75-8c30-0aa2bbdc4ec1',kraj: '',kurs: 4.2869,number: 1,numberDoc: 'PZ/1',numberInvoce: '',podsumowanie: { '0': [] },supplier: 'Private Joint Stock Company Confectionery LAGODA',supplierNIP: '260035156',tbSumma: { VAT: 1971.97, brutto: 10545.77, netto: 8573.8 },timestampServer: 1549454330515,tovar: { '0': [] } }'
+
+
+
+  functions call setNumberDocuments --data='{ \"city\": \"\"}'
+
+
+  functions call setNumberDocuments --data='{"city":"","currency":"eur","currentPrice":"netto","dateDocument":"2019-02-06T11:58:29.996Z","dateInvoce":"2019-02-06T11:58:29.996Z","id":"9fbccd67-f0a1-4d75-8c30-0aa2bbdc4ec1","kraj":"","kurs":4.2869,"number":1,"numberDoc":"PZ/1","numberInvoce":"","podsumowanie":{"0":[]},"supplier":"Private Joint Stock Company Confectionery LAGODA","supplierNIP":"260035156","tbSumma":{"VAT":1971.97,"brutto":10545.77,"netto":8573.8},"timestampServer":1549454330515,"tovar":{"0":[]}}'
+
+
+  console.log(JSON.stringify({ city: '',currency: 'eur',currentPrice: 'netto',dateDocument: '2019-02-06T11:58:29.996Z',dateInvoce: '2019-02-06T11:58:29.996Z',id: '9fbccd67-f0a1-4d75-8c30-0aa2bbdc4ec1',kraj: '',kurs: 4.2869,number: 1,numberDoc: 'PZ/1',numberInvoce: '',podsumowanie: { '0': [] },supplier: 'Private Joint Stock Company Confectionery LAGODA',supplierNIP: '260035156',tbSumma: { VAT: 1971.97, brutto: 10545.77, netto: 8573.8 },timestampServer: 1549454330515,tovar: { '0': [] } }))
+
+
+
+  setNumberDocuments({before: { city: '',currency: 'eur',currentPrice: 'netto',dateDocument: '2019-02-06T11:58:29.996Z',dateInvoce: '2019-02-06T11:58:29.996Z',id: '9fbccd67-f0a1-4d75-8c30-0aa2bbdc4ec1',kraj: '',kurs: 4.2869,number: 1,numberDoc: 'PZ/1',numberInvoce: '',podsumowanie: { '0': [] },supplier: 'Private Joint Stock Company Confectionery LAGODA',supplierNIP: '260035156',tbSumma: { VAT: 1971.97, brutto: 10545.77, netto: 8573.8 },timestampServer: 1549454330515,tovar: { '0': [] } }, after: {}})
+
+
+
+
+setNumberDocuments({before : null, after: { city: '',currency: 'eur',currentPrice: 'netto',dateDocument: '2019-02-06T11:58:29.996Z',dateInvoce: '2019-02-06T11:58:29.996Z',id: '9fbccd67-f0a1-4d75-8c30-0aa2bbdc4ec1',kraj: '',kurs: 4.2869,number: 1,numberDoc: 'PZ/1',numberInvoce: '',podsumowanie: { '0': [] },supplier: 'Private Joint Stock Company Confectionery LAGODA',supplierNIP: '260035156',tbSumma: { VAT: 1971.97, brutto: 10545.77, netto: 8573.8 },timestampServer: 1549454330515,tovar: { '0': [] } }})
+
+
+
+setNumberDocumentFV({ buyer: { stringValue: 'ZKF s.r.o.' },
+     buyerNIP: { stringValue: '23142564' },
+     buyerRef: { referenceValue: 'projects/ceruxtest/databases/(default)/documents/customers/23142564' },
+     dateDocument: { timestampValue: [] },
+     datePaymentDeadline: { timestampValue: [] },
+     dateSales: { timestampValue: [] },
+     discount: { booleanValue: false },
+     id: { stringValue: '00d9f4ad-b2ce-48f2-85fb-6340eb707650' },
+     number: { integerValue: '0' },
+     numberDoc: { stringValue: '' },
+     placeOfIssue: { stringValue: '' },
+     podsumowanie: { arrayValue: { '0': [] } },
+     tbSumma: { mapValue: { VAT: 1971.97, brutto: 10545.77, netto: 8573.8 } },
+     timestampServer: { timestampValue: [] },
+     tovar: { arrayValue: [{ '0': [] }] } })
+
+
+     { VAT: 1971.97, brutto: 10545.77, netto: 8573.8 },timestampServer: 1549454330515,tovar: { 

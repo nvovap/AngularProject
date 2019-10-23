@@ -1,0 +1,162 @@
+<!-- <mat-card> -->
+<!-- EMAIL field -->
+<!-- <mat-form-field>
+        <input matInput placeholder="Enter your email" [formControl]="email" required>
+        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+  
+      <br> -->
+
+<!-- PASSWORD field -->
+<!-- <mat-form-field>
+        <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field> -->
+
+<!-- <br>
+  
+      <button mat-button>Sing up</button> -->
+
+<!-- </mat-card> -->
+
+<!-- <button mat-button singin-button>Sing in</button> -->
+
+
+
+
+
+<div class="form-signin">
+  <div class="text-center mb-4">
+    <img class="mb-4" src="../assets/img/logo_MaxFood@3x.png" alt="" width="144" height="144">
+    <h1 class="h3 mb-3 font-weight-normal"> USER </h1>
+
+  </div>
+
+  <mat-tab-group dynamicHeight>
+    <mat-tab label="Sign In">
+      <div class="form-label-group">
+        <mat-form-field>
+          <input matInput placeholder="Enter your email" [formControl]="email" required>
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-label-group">
+        <mat-form-field>
+          <input matInput [(ngModel)]="password" placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <button mat-raised-button class="btn-primary" (click)="onLogin()">Login</button>
+        </div>
+      </div>
+    </mat-tab>
+
+
+
+    <!-- Create User Sing Up -->
+    <mat-tab label="Sign Up">
+      <div class="form-label-group">
+        <mat-form-field>
+          <input matInput placeholder="Enter your email" [formControl]="email" required>
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-label-group">
+        <mat-form-field>
+          <input matInput [(ngModel)]="password" placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="form-label-group">
+        <mat-form-field>
+          <input matInput [(ngModel)]="nipOrganisation" placeholder="Enter nip organisation">
+        </mat-form-field>
+      </div>
+
+      <!-- <app-upload-logo [linkFireStore]="photoURL" (chageLinkLogo)="onChangedLogoLink($event)"></app-upload-logo> -->
+
+      <div class="row">
+        <div class="col-md-4"></div>
+
+        <div class="col-md-4">
+          <button mat-raised-button color="primary" (click)="onCreateUser()">
+            Create User
+          </button>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+
+    </mat-tab>
+  </mat-tab-group>
+
+
+
+
+
+  <!-- <p class="mt-5 mb-3 text-muted text-center">2018-2018</p> -->
+
+</div>
+
+
+
+
+<!-- <div class="row">
+  <div class="col-md-3"> 
+  </div>
+  
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header card-header-icon">
+        
+        <div class="card-icon">
+          <img src="assets/img/logo_MaxFood@3x.png" alt="" width="50" height="50">
+        </div>
+            
+        <h4 class="card-title">Login</h4>
+      </div>
+      <div class="card-body">
+        
+            <div class="row">
+
+              <div class="col-md-12"> 
+              <mat-form-field>
+                <input  matInput placeholder="Enter your email" [formControl]="email" required>
+                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              
+              <mat-form-field>
+                  <input matInput [(ngModel)]="password"  placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </mat-form-field>
+            </div>
+            </div>
+
+
+          <br>
+          
+
+          <div class="row">
+            <div class="col-md-3"> 
+                <button mat-raised-button class="btn-primary" (click)="onLogin()">Login</button>
+            </div>
+            <div class="col-md-3">
+                
+            </div>
+            <div class="col-md-6"> 
+              <button mat-raised-button color="primary" (click)="onCreateUser()" >
+                  Create User
+              </button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+      
+  <div class="col-md-3">
+  </div>
+</div> -->

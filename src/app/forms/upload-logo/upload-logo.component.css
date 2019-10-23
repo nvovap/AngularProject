@@ -1,0 +1,7 @@
+/* mouse over link */
+img:hover {
+    transform: scale(1.07);
+	box-shadow: 0 0 10px rgba(0,0,0, 0.5);
+	transition: .5s all;
+	z-index: 100 ;
+}

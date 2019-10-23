@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="card">
+    <!-- <div class="card-header">
+      Image tovar
+    </div> -->
+    <div class="card-body">
+
+      <!-- <div *ngIf="fileUploud">  -->
+          <input style="visibility:hidden" type="file" (change)="upload($event)" accept=".png,.jpg"  #file/>
+          <img [src]="imageRef" alt="" height="175px" (click)="file.click()">
+      <!-- </div> -->
+
+      <!-- <div *ngIf="fileNotUpload"> -->
+          <!-- <h5 class="card-title">Select a file for upload:</h5> -->
+          <!-- <input type="file" (change)="upload($event)" accept=".png,.jpg" /> -->
+          <!-- <br><br>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(uploadProgress | async) + '%'" [attr.aria-valuenow]="(uploadProgress | async)" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <br>
+          <div *ngIf="downloadURL | async; let downloadSrc" class="alert alert-info" role="alert">
+              File uploaded: <a [href]="downloadSrc">{{downloadSrc}}</a>
+          </div> -->
+      <!-- </div> -->
+      
+    </div>
+  </div>
+</div>

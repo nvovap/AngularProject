@@ -1,0 +1,268 @@
+<app-customers *ngIf="flagSelectCustomer" [flagSelectCustomer]="true" (selectCustomer)="onSelectCustomer($event)">
+</app-customers>
+
+
+<app-print-faktura [faktura]="faktura"></app-print-faktura>
+
+<div class="card" *ngIf="!flagSelectCustomer">
+    <div class="card-header card-header-danger">
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="card-title">Faktura VAT</h4>
+                <p class="card-category">Krajowa sprzedaż towarów i usług na fakturę VAT</p>
+            </div>
+
+            <div class="col-6 text-right">
+                <button class="btn btn-info" (click)="onCancelFactura()">anuluj</button>
+                <button class="btn btn-info" (click)="onSaveFactura()">zatwierdz</button>
+                <button class="btn btn-info" (click)="onSaveToPDF()">Print</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-5">
+
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Nabywca" [(ngModel)]="faktura.buyer" [matAutocomplete]="auto">
+
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)='onSelectCustomer($event.option.value)'>
+                        <!-- <mat-option *ngFor="let option of tovars | filterTovar: tovarsForSearch: searchStrTovar" [value]="option"> -->
+                        <mat-option *ngFor="let option of customersForSearch | searchCustomer: faktura.buyer"
+                            [value]="option">
+                            {{option.name +' '+ option.NIP}}
+                        </mat-option>
+                    </mat-autocomplete>
+
+                    <button mat-button matSuffix mat-icon-button aria-label="Select nabywca"
+                        (click)="onSectionCustomer()">
+                        <mat-icon>reorder</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Miejsce wystawienia" type="text" [(ngModel)]="faktura.placeOfIssue">
+                </mat-form-field>
+
+
+                <mat-form-field>
+                    <textarea rows="6.5" matInput [(ngModel)]="faktura.uwagi"></textarea>
+                  </mat-form-field>
+
+            </div>
+            <div class="col-md-3">
+                <mat-form-field class="example-full-width">
+                    <input matInput [(ngModel)]="faktura.dateDocument" [matDatepicker]="picker" placeholder="Data wystawienia">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input matInput  [(ngModel)]="faktura.dateSales" [matDatepicker]="picker2" placeholder="Data sprzedaży">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker2></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input matInput [(ngModel)]="faktura.datePaymentDeadline" [matDatepicker]="picker3" placeholder="Termin płatności">
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker3></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Pozycje</h4>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="">
+                    <th class="text-center">
+                        lp.
+                    </th>
+                    <th class="text-center">
+                        nazwa towaru
+                    </th>
+                    <th class="text-center">
+                        PKWiU
+                    </th>
+                    <th class="text-center">
+                        Ilość
+                    </th>
+                    <th class="text-center">
+                        Jednostka
+                    </th>
+                    <th class="text-center">
+                        Cena jend.
+                    </th>
+                    <th class="text-center">
+                        Rabat %
+                    </th>
+                    <th class="text-center">
+                        Po rabacie
+                    </th>
+                    <th class="text-center">
+                        VAT
+                    </th>
+                    <th class="text-center">
+                        Wartość (netto)
+                    </th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of faktura.tovar">
+                        <td class="text-center">
+                            {{item.npp}}
+                        </td>
+                        <td class="text-center">
+                            <input matInput placeholder="nazwa towaru" type="text" [(ngModel)]="item.name">
+                        </td>
+
+                        <td class="text-center">
+                            <input matInput placeholder="PKWiU" type="text" [(ngModel)]="item.PKWiU">
+                        </td>
+
+                        <td class="text-center">
+                            <input matInput placeholder="ilość" type="text" [(ngModel)]="item.quantity"
+                                [textMask]="{mask: numberMask9d3}" (change)="changeQuantity(item)">
+                        </td>
+                        <td class="text-center">
+                            <input matInput placeholder="jednostka" type="text" [(ngModel)]="item.unit">
+                        </td>
+                        <td class="text-center">
+                            <input matInput placeholder="Cena jend." type="text" [(ngModel)]="item.price"
+                                [textMask]="{mask: numberMask9d2}" (change)="changePrice(item)">
+                        </td>
+                        <td class="text-center">
+                            <input matInput placeholder="Rabat" type="text" [(ngModel)]="item.discount"
+                                [textMask]="{mask: numberMask9d2}" (change)="changeDiscount(item)">
+                        </td>
+                        <td class="text-center">
+                            <input matInput placeholder="Po rabacie" type="text" [(ngModel)]="item.priceDiscount"
+                                [textMask]="{mask: numberMask9d2}" (change)="changePriceDiscount(item)">
+                        </td>
+                        <td class="text-center">
+                            <mat-select placeholder="stawka VAT" [(ngModel)]="item.VAT"
+                                (selectionChange)="triggerKindVAT()">
+                                <mat-option *ngFor="let stawkaVATOption of tableVAT" value={{stawkaVATOption.value}}>
+                                    {{stawkaVATOption.name}}</mat-option>
+                            </mat-select>
+                        </td>
+                        <td class="text-center">
+                            <input matInput placeholder="summa zakupu" type="text" [(ngModel)]="item.summa"
+                                [textMask]="{mask: numberMask9d2}" (change)="changeSumma(item)">
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btninfo" (click)="onDelete(item)"><i
+                                    class="material-icons">delete</i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row" *ngIf="flagSelectTovar == false">
+
+            <!-- <div class="col-md-1">
+                    <button mat-button matSuffix mat-icon-button aria-label="dodaj towar" (click)="onSectionTovar()">
+                        <mat-icon>add_circle</mat-icon>
+                    </button>
+                </div> -->
+
+            <div class="col-md-11">
+                <mat-form-field class="example-full-width">
+                    <input matInput type="text" placeholder="(fine towar)" [(ngModel)]="searchStrTovar"
+                        [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayTovarFn"
+                        (optionSelected)='selectTovarTwo($event.option.value)' (closed)='closedSelectTovar()'>
+                        <!-- <mat-option *ngFor="let option of tovars | filterTovar: tovarsForSearch: searchStrTovar" [value]="option"> -->
+                        <mat-option *ngFor="let option of tovarsForSearch | searchTovar: searchStrTovar"
+                            [value]="option">
+                            {{option.prodCode +' '+ option.prodName}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <button mat-button matSuffix mat-icon-button aria-label="dodaj towar" (click)="onSectionTovar()">
+                        <mat-icon>reorder</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <app-tovar *ngIf="flagSelectTovar" [flagSelectTovar]="true" (selectTovar)="onSelectTovar($event)"></app-tovar>
+    </div>
+</div>
+
+
+<!-- TOTAL -->
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Podsumowanie</h4>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="">
+                    <th class="text-center">
+                        stawka VAT
+                    </th>
+                    <th class="text-center">
+                        netto
+                    </th>
+                    <th class="text-center">
+                        VAT
+                    </th>
+                    <th class="text-center">
+                        brutto
+                    </th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of faktura.podsumowanie">
+                        <td class="text-center">
+                            {{item.satavkaVAT}}
+                        </td>
+                        <td class="text-center">
+                            {{item.netto | number:'1.2'}}
+                        </td>
+                        <td class="text-center">
+                            {{item.VAT | number:'1.2'}}
+                        </td>
+                        <td class="text-center">
+                            {{item.brutto | number:'1.2'}}
+                        </td>
+                    </tr>
+                </tbody>
+
+                <tfoot>
+                    <th class="text-center">
+                        razem
+                    </th>
+                    <th class="text-center">
+                        {{faktura.tbSumma.netto | number:'1.2'}}
+                    </th>
+                    <th class="text-center">
+                        {{faktura.tbSumma.VAT | number:'1.2'}}
+                    </th>
+                    <th class="text-center">
+                        {{faktura.tbSumma.brutto | number:'1.2'}}
+                    </th>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- style="display:none -->
+<div id="contentForPDF" #contentForPDF style="display:none">
+    <app-print-faktura [faktura]='faktura'></app-print-faktura>
+    <!-- <div style="height: 100pt">
+            
+    </div> -->
+</div>

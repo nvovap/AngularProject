@@ -1,0 +1,264 @@
+<div class="card">
+  <div class="card-header card-header-info">
+    <div class="row">
+      <div class="col-6">
+        <h4 class="card-title ">Organization</h4>
+      </div>
+      <div class="col-6 text-right">
+        <button class="btn btn-info" (click)="onSaveCustomer()">zatwierdz</button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+
+
+    <div class="row">
+
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Main</h4>
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field>
+                  <!-- <name></ -->
+                  <input matInput [(ngModel)]="organization.name" placeholder="name firmy">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput [(ngModel)]="organization.identyfikator" placeholder="Identyfikator">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput [(ngModel)]="organization.BDO" placeholder="BDO">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                  <mat-select placeholder="Prefiks UE" [(ngModel)]="organization.prefiksUE">
+                    <mat-option value="">(wybierz)</mat-option>
+                    <mat-option *ngFor="let payOption of kindPrefiksUE" value={{payOption.value}}>{{payOption.message}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-8">
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput [textMask]="{mask: NIPMask, guide: false}" [(ngModel)]="organization.NIP" #nip
+                        placeholder="NIP">
+                      <mat-hint align="end">{{nip.value.length}} / 10</mat-hint>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-2">
+                    <button *ngIf="buttonGetCustomerNIPEnable" class="btn btn-info"
+                      (click)="onGetCustomerNIP()">GET</button>
+                    <div *ngIf="!buttonGetCustomerNIPEnable" class="spinner-border" role="status"> <span
+                        class="sr-only">Loading...</span></div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card Main -->
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Adress</h4>
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field>
+                  <input matInput [(ngModel)]="organization.adres.ulicaNumer" placeholder="Ulica, number">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                  <input matInput [textMask]="{mask: kodPocztowyMask, guide: false}" #kodPocztowy
+                    [(ngModel)]="organization.adres.kodPocztowy" placeholder="Kod pocztowy">
+                  <mat-hint align="end">{{kodPocztowy.value.length}} / 6</mat-hint>
+                </mat-form-field>
+              </div>
+
+
+              <div class="col-md-8">
+                <mat-form-field>
+                  <input matInput [(ngModel)]="organization.adres.miejscowosc" placeholder="Miejscowosc">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field>
+                  <input matInput [(ngModel)]="organization.adres.kraj" placeholder="kraj">
+                </mat-form-field>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- Card Adress -->
+
+    </div>
+    <!-- Row 1 -->
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-5">
+            <app-orgonisation-logo (chageLinkLogo)="onChangedLogoLink($event)"></app-orgonisation-logo>
+          </div>
+          <div class="col-md-7">
+            <div class="card">
+
+              <div class="card-header">
+                <h4 class="card-title">Uwagi</h4>
+              </div>
+
+              <div class="card-body">
+                <mat-form-field>
+                  <textarea rows="6.5" matInput [(ngModel)]="organization.uwagi"></textarea>
+                </mat-form-field>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Kontact</h4>
+          </div>
+          <div class="card-body">
+
+            <mat-form-field>
+              <input matInput [(ngModel)]="organization.telefon1" placeholder="Telefon 1">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [(ngModel)]="organization.telefon2" placeholder="Telefon 2">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [(ngModel)]="organization.fax" placeholder="Faks">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Row 2 -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Accounts</h4>
+          </div>
+          <div class="card-body">
+
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="">
+                  <th class="text-center">
+                    <button class="mat-button" (click)='onAddAccount()'><i
+                        class="material-icons">playlist_add</i></button>
+                  </th>
+                  <th class="text-center">
+                    type
+                  </th>
+                  <th class="text-center">
+                    name
+                  </th>
+                  <th class="text-center">
+                    number
+                  </th>
+                  <th class="text-center">
+                    currency
+                  </th>
+                  <th class="text-center">
+                    operacje
+                  </th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of organization.accounts">
+                    <td class="text-center">
+                        <mat-checkbox  [checked] = "item.id == organization.currentAccount" (change)="changeCurrentAccount(item.id)" ></mat-checkbox> 
+                    </td>
+
+                    <td class="text-center">
+                      <mat-select placeholder="type account" [(ngModel)]="item.type">
+                        <mat-option value=0>bank</mat-option>
+                        <mat-option value=1>kassa</mat-option>
+                      </mat-select>
+                    </td>
+
+
+                    <td class="text-center">
+                      <input matInput placeholder="name" type="text" [(ngModel)]="item.name">
+                    </td>
+
+                    <td class="text-center">
+                      <input [disabled]="item.type == 1" matInput placeholder="number konta" type="text"
+                        [(ngModel)]="item.number">
+                    </td>
+
+                    <td class="text-center">
+                      <input matInput placeholder="currency" type="text" [(ngModel)]="item.currency">
+
+                      <mat-form-field>
+                        <mat-select placeholder="currency" [(ngModel)]="item.currency">
+                          <mat-option value="">(wybierz)</mat-option>
+                          <mat-option *ngFor="let currency of currencies" value={{currency}}>{{currency}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </td>
+
+                    <td class="text-center">
+                      <button class="btn btninfo" (click)="onDelete(item)"><i class="material-icons">delete</i></button>
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Row 3 -->
+
+
+  </div>
+  <!-- BODY -->
+</div>

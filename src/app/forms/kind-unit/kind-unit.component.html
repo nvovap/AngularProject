@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-info">
+          <div class="row">
+            <div class="col-9">
+              <h4 class="card-title ">Kind Units</h4>
+            </div>
+  
+            <div class="col-3 text-right">
+                    
+            </div>
+          </div>
+        </div>
+  
+        <div class="card-body">
+  
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+                <th>
+                  ID 
+                </th>
+                <th>
+                  NAZWA
+                </th>
+                <th>
+                  Op.
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let unit of units">
+                  <td>{{unit.id}}</td>
+  
+                  <td *ngIf="unit.id != currentIDKindUnitEdit">{{unit.name}}</td>
+  
+                  <td *ngIf="unit.id == currentIDKindUnitEdit"><input matInput [(ngModel)]="unit.name" placeholder="nazwa unit na paragonie"> </td>
+  
+                  <td>
+                      <button *ngIf="flagSelectUnit" class="btn" (click)="onSelectUnit(unit)"><i class="material-icons">done_outline</i></button>
+                      <button *ngIf="!flagSelectUnit && unit.id != currentIDKindUnitEdit" [disabled] = "editUnitFlag==true" class="btn btn-info" (click)="onEditUnit(unit)">Edit Units</button>
+                      <button *ngIf="unit.id == currentIDKindUnitEdit" class="btn btn-info" (click)="onSaveUnit(unit)">Save Unit</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input matInput [(ngModel)]="currentKindUnitAdd.id" placeholder="id new unit"></td>
+                  <td><input matInput [(ngModel)]="currentKindUnitAdd.name" placeholder="nazwa new unit na paragonie"></td>
+                  <td><button class="btn btn-danger" (click)="onSaveUnit(currentKindUnitAdd)">Add new Unit</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

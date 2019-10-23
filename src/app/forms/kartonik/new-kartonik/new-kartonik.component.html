@@ -1,0 +1,86 @@
+
+    <div class="card">
+      <div class="card-header card-header-success">
+        <div class="row">
+          <div class="col-6">
+            <h4 class="card-title ">Kartonik:</h4>
+          </div>
+
+          <div class="col-6 text-right">
+            <button class="btn btn-info" (click)="onCancelTovar()">anuluj</button>
+            <button class="btn btn-info" (click)="onSaveTovar()">zatwierdz</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-8">
+
+            <mat-form-field class="example-full-width">
+              <input matInput [(ngModel)]="kartonik.code" maxlength="10" #codeKartonik placeholder="Kod kartonika">
+              <mat-hint align="end">{{codeKartonik.value.length}} / 10</mat-hint>
+            </mat-form-field>
+
+            <div class="row">
+              <div class="col-md-3">
+                <mat-form-field>
+                  <input matInput class="text-center" placeholder="waga" type="text" [(ngModel)]="kartonik.waga"
+                    [textMask]="{mask: numberMask9d3}">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput class="text-center" placeholder="kartonikow w 1 warstwie" type="text"
+                    [(ngModel)]="kartonik.kartonikowW1Warstwie" [textMask]="{mask: numberMask9d3}">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <label><b>Wymiary kartonika:</b></label>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <input matInput class="text-center" [(ngModel)]="kartonik.length" placeholder="długość"
+                        [textMask]="{mask: numberMask9d3}">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <input matInput class="text-center" [(ngModel)]="kartonik.width" placeholder="szerokość"
+                        [textMask]="{mask: numberMask9d3}">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <input matInput class="text-center" [(ngModel)]="kartonik.height" placeholder="wysokość"
+                        [textMask]="{mask: numberMask9d3}">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <mat-checkbox [(ngModel)]="kartonik.kartonikZbiorczy">kartonik zbiorczy</mat-checkbox> -->
+            
+          </div>
+
+          <div class="col-md-4">
+            <app-upload-logo [linkFolder]="'KartonikLogo'" [linkFireStore]="kartonik.photoLink"
+              (chageLinkLogo)="onChangedLogoLink($event)"></app-upload-logo>
+          </div>
+        </div>
+      </div>
+    </div>
+
+

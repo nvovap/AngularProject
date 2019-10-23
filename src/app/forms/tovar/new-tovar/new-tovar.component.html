@@ -1,0 +1,422 @@
+<div class="card">
+  <div class="card-header card-header-success">
+    <div class="row">
+      <div class="col-6">
+        <h4 class="card-title ">Towar: NOWY</h4>
+      </div>
+
+      <div class="col-6 text-right">
+        <button class="btn btn-info" (click)="onCancelTovar()">anuluj</button>
+        <button class="btn btn-info" (click)="onSaveTovar()">zatwierdz</button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <mat-tab-group>
+
+      <!-- PAGE CURRENT -->
+      <mat-tab label="Current">
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="card-header">
+              <div class="row">
+                <div class="col-9">
+                  <h4 class="card-title "></h4>
+                </div>
+
+                <div class="col-3 text-right">
+
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="row">
+
+                <div class="col-md-8">
+                  <div class="row">
+
+                    <div class="col-md-6">
+                      <mat-form-field>
+                        <input matInput [(ngModel)]="tovar.prodName" placeholder="name">
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <mat-form-field>
+                            <input matInput [(ngModel)]="tovar.prodCode" placeholder="Identyfikator">
+                          </mat-form-field>
+                        </div>
+
+                        <div class="col-md-6" class="align-middle">
+                          <mat-checkbox [(ngModel)]="tovar.itService">it's service</mat-checkbox>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field>
+                        <input matInput [(ngModel)]="tovar.nameNaParagonie" placeholder="nazwa na paragonie">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field>
+                        <input matInput [(ngModel)]="tovar.numerKatalogowy" placeholder="Numer katalogowy">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <!-- <mat-form-field>
+                  <input matInput [(ngModel)]="tovar.PKWiU" placeholder="PKWiU">
+                </mat-form-field> -->
+
+
+                      <mat-form-field class="example-full-width">
+                        <input matInput type="text" placeholder="PKWiU" [(ngModel)]="tovar.PKWiU"
+                          [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                          <!-- [displayWith]="displayPKWiUFn" (optionSelected)='selectTovarTwo($event.option.value)'> -->
+                          <!-- <mat-option *ngFor="let option of tovars | filterTovar: tovarsForSearch: searchStrTovar" [value]="option"> -->
+                          <mat-option *ngFor="let option of elementsPKWiUForSearch | searchPKWiU: tovar.PKWiU"
+                            [value]="option.code">
+                            {{option.code +' '+ option.name}}
+                          </mat-option>
+                        </mat-autocomplete>
+                        <!-- <button mat-button matSuffix mat-icon-button aria-label="dodaj towar" (click)="onSectionTovar()">
+                        <mat-icon>reorder</mat-icon>
+                    </button> -->
+                      </mat-form-field>
+
+
+
+
+                    </div>
+                    <div class="col-md-6">
+                      <mat-select placeholder="stawka VAT" [(ngModel)]="tovar.VAT">
+                        <mat-option *ngFor="let stawkaVATOption of tableVAT" value={{stawkaVATOption.value}}>
+                          {{stawkaVATOption.name}}</mat-option>
+                      </mat-select>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <mat-select placeholder="Jednostka" [(ngModel)]="tovar.prodJedno">
+                            <mat-option *ngFor="let jednostkaItem of tableJednostka" value={{jednostkaItem.id}}>
+                              {{jednostkaItem.name}}</mat-option>
+                          </mat-select>
+                        </div>
+                        <div class="col-md-3">
+                          <mat-form-field>
+                            <input matInput class="text-center" [(ngModel)]="tovar.prodNetto" placeholder="netto">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                          <mat-form-field>
+                            <input matInput class="text-center" [(ngModel)]="tovar.prodBrutto" placeholder="brutto">
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field>
+                        <input matInput [(ngModel)]="tovar.kartEan" placeholder="Kod EAN">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+
+                      <div class="row">
+                        <div class="col-md-12">
+                          <label><b>Wymiary towaru:</b></label>
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col-md-3">
+                          <mat-form-field>
+                            <input matInput class="text-center" [(ngModel)]="tovar.length" placeholder="długość">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                          <mat-form-field>
+                            <input matInput class="text-center" [(ngModel)]="tovar.width" placeholder="szerokość">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                          <mat-form-field>
+                            <input matInput class="text-center" [(ngModel)]="tovar.height" placeholder="wysokość">
+                          </mat-form-field>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field>
+                        <input matInput [(ngModel)]="tovar.prodBrutto" placeholder="brutto">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="row">
+
+                        <div class="col-md-3">
+                          <mat-form-field>
+                            <input matInput class="text-center" [(ngModel)]="tovar.length" placeholder="długość">
+                          </mat-form-field>
+                        </div>
+
+                        <div class="col-md-3">
+                          <mat-form-field>
+                            <input matInput class="text-center" [(ngModel)]="tovar.width" placeholder="szerokość">
+                          </mat-form-field>
+                        </div>
+
+                        <div class="col-md-3">
+                          <mat-form-field>
+                            <input matInput class="text-center" [(ngModel)]="tovar.height" placeholder="wysokość">
+                          </mat-form-field>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field>
+                        <input matInput [(ngModel)]="tovar.prodBrutto" placeholder="brutto">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="col-md-4">
+                  <app-upload-logo [linkFolder]="'TovarLogo'" [linkFireStore]="tovar.prodPhotoLink"
+                    (chageLinkLogo)="onChangedLogoLink($event)"></app-upload-logo>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <!-- PAGE PAKOWANIE -->
+      <mat-tab label="PAKOWANIE">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Pozycje</h4>
+          </div>
+          <div class="card-body">
+
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="">
+                  <th class="text-center">
+                    kartonik
+                  </th>
+                  <th class="text-center">
+                    EAN kartonika
+                  </th>
+                  <th class="text-center">
+                    stuk w kartoniku
+                  </th>
+                  <th class="text-center">
+                    warstw na palecie
+                  </th>
+                  <th class="text-center">
+                    Op.
+                  </th>
+
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of tovar.boxes">
+
+
+                    <td class="text-center">
+                      <input matInput placeholder="kartonik" type="text" [(ngModel)]="item.kartonik">
+                    </td>
+
+                    <td class="text-center">
+                      <input matInput placeholder="EAN kartonika" type="text" [(ngModel)]="item.EAN">
+                    </td>
+
+                    <td class="text-center">
+                      <input matInput placeholder="stuk w kartoniku" type="text" [(ngModel)]="item.countToBox"
+                        [textMask]="{mask: numberMask9}">
+                    </td>
+
+                    <td class="text-center">
+                      <input matInput placeholder="warstw na palecie" type="text" [(ngModel)]="item.hieghtInPallete"
+                        [textMask]="{mask: numberMask9}">
+                    </td>
+
+                    <td class="text-center">
+                      <button class="btn btninfo" (click)="onDeleteBox(item)"><i class="material-icons">delete</i></button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-center">
+                      <input matInput placeholder="kartonik" type="text" [(ngModel)]="currentBox.kartonik">
+                    </td>
+
+                    <td class="text-center">
+                      <input matInput placeholder="EAN kartonika" type="text" [(ngModel)]="currentBox.EAN">
+                    </td>
+
+                    <td class="text-center">
+                      <input matInput placeholder="stuk w kartoniku" type="text" [(ngModel)]="currentBox.countToBox">
+                        <!-- [textMask]="{mask: numberMask9}"> -->
+                    </td>
+
+                    <td class="text-center">
+                      <input matInput placeholder="warstw na palecie" type="text" [(ngModel)]="currentBox.hieghtInPallete">
+                        <!-- [textMask]="{mask: numberMask9}"> -->
+                    </td>
+
+                    <td><button class="btn btn-danger" (click)="onSaveBox(currentBox)">Add new Cenik</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <!-- PAGE CENY -->
+      <mat-tab label="CENY">
+
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Pozycje</h4>
+          </div>
+          <div class="card-body">
+
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="">
+                  <th class="text-center">
+                    nazwa cennik
+                  </th>
+                  <th class="text-center">
+                    brutto
+                  </th>
+                  <th class="text-center">
+                    netto
+                  </th>
+                  <th class="text-center">
+                    zysk nettto
+                  </th>
+                  <th class="text-center">
+                    narzut
+                  </th>
+                  <th class="text-center">
+                    marza
+                  </th>
+                  <th class="text-center">
+                    Op.
+                  </th>
+
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of tovar.ceny">
+
+
+                    <td class="text-center">
+                      <input matInput placeholder="cennik" type="text" [(ngModel)]="item.cennik">
+                    </td>
+
+                    <td class="text-center">
+                      <input matInput placeholder="netto" type="text" [(ngModel)]="item.netto"
+                        [textMask]="{mask: numberMask9d2}" (change)="changeNetto(item)">
+                    </td>
+
+                    <td class="text-center">
+                      <input matInput placeholder="brutto" type="text" [(ngModel)]="item.brutto"
+                        [textMask]="{mask: numberMask9d2}" (change)="changeBrutto(item)">
+                    </td>
+
+                    <td class="text-center">
+                      <input matInput placeholder="zysk nettto" type="text" [(ngModel)]="item.zyskNettto"
+                        [textMask]="{mask: numberMask9d2}" (change)="changeZyskNettto(item)">
+                    </td>
+
+                    <td class="text-center">
+                      <input matInput placeholder="narzut" type="text" [(ngModel)]="item.narzut"
+                        [textMask]="{mask: numberMask9d2}" (change)="changeNarzut(item)">
+                    </td>
+
+                    <td class="text-center">
+                      <input matInput placeholder="marza" type="text" [(ngModel)]="item.marza"
+                        [textMask]="{mask: numberMask9d2}" (change)="changeMarza(item)">
+                    </td>
+
+                    <td class="text-center">
+                      <button class="btn btninfo" (click)="onDelete(item)"><i class="material-icons">delete</i></button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-center">
+                      <input matInput placeholder="cennik" type="text" [(ngModel)]="currentCena.cennik">
+                    </td>
+
+                    <td class="text-center">
+                      <input matInput placeholder="netto" type="text" [(ngModel)]="currentCena.netto"
+                        [textMask]="{mask: numberMask9d2}" (change)="changeNetto(currentCena)">
+                    </td>
+
+                    <td class="text-center">
+                      <input matInput placeholder="brutto" type="text" [(ngModel)]="currentCena.brutto"
+                        [textMask]="{mask: numberMask9d2}" (change)="changeBrutto(currentCena)">
+                    </td>
+
+                    <td class="text-center">
+                      <input matInput placeholder="zysk nettto" type="text" [(ngModel)]="currentCena.zyskNettto"
+                        [textMask]="{mask: numberMask9d2}" (change)="changeZyskNettto(currentCena)">
+                    </td>
+
+                    <td class="text-center">
+                      <input matInput placeholder="narzut" type="text" [(ngModel)]="currentCena.narzut"
+                        [textMask]="{mask: numberMask9d2}" (change)="changeNarzut(currentCena)">
+                    </td>
+
+
+
+                    <td class="text-center">
+                      <input matInput placeholder="marza" type="text" [(ngModel)]="currentCena.marza"
+                        [textMask]="{mask: numberMask9d2}" (change)="changeMarza(currentCena)">
+                    </td>
+
+
+                    <td><button class="btn btn-danger" (click)="onSaveCena(currentCena)">Add new Cenik</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </mat-tab>
+
+    </mat-tab-group>
+
+  </div>
+</div>

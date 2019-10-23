@@ -1,0 +1,85 @@
+<div class="main-content">
+    <div class="container-fluid">
+        
+        <div class="row">
+            <div class="col-md-12">
+                <app-new-tovar *ngIf="addNewTovarFlag" [tovar]="currentTovar"  [itIsAddTovar] = "itIsAddTovar" (addNewTovarFlagChange)="onChangedAddNewTovarFlag($event)"></app-new-tovar>
+            </div>
+        </div>
+
+        <div class="row">
+                <div class="col-md-12">
+                    <div class="card" *ngIf="addNewTovarFlag == false">
+                        <div class="card-header card-header-success">
+                            <div class="row">
+                                <div class="col-2">
+                                    <h4 class="card-title ">Towar</h4>
+                                </div>
+
+                                <div class="col-3">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="(fine towar)" [(ngModel)]="searchStr">
+                                        <button mat-button matSuffix mat-icon-button aria-label="finde towar">
+                                            <mat-icon>search</mat-icon>
+                                        </button>
+                                    </mat-form-field>
+                                </div>
+                                
+                                <div class="col-7 text-right">
+                                    <button class="btn btn-info" (click)="onAddTovar()" *ngIf="!addNewTovarFlag" >Add Towar</button>
+                                    <!-- <button class="btn btn-info" (click)="onGetTotal()">Get old Tovar</button> -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body">
+                            
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                        <th>
+                                            Identyfikator
+                                        </th>
+                                        <th>
+                                            Kod EAN
+                                        </th>
+                                        <th>
+                                            name towaru/usługi
+                                        </th>
+                                        <th>
+                                            PKWiU
+                                        </th>
+                                        <th>
+                                            Jednostka
+                                        </th>
+                                        <th>
+                                            VAT
+                                        </th>
+                                        <th>
+                                            Op
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let tovar of tovars | searchTovar: searchStr">
+                                            <td>{{tovar.prodCode}}</td>
+                                            <td>{{tovar.kartEan}}</td>
+                                            <td>{{tovar.prodName}}</td>
+                                            <td>{{tovar.PKWiU}}</td>
+                                            <td>{{tovar.prodJedno}}</td>
+                                            <td>{{tovar.VAT}}</td>
+                                            <td>
+                                                <button *ngIf="flagSelectTovar == false" class="btn" (click)="onEditCustomer(tovar)"><i class="material-icons">edit</i></button>
+                                                <button *ngIf="flagSelectTovar" class="btn" (click)="onSelectTovar(tovar)"><i class="material-icons">done_outline</i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+

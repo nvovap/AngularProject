@@ -1,0 +1,63 @@
+<div class="main-content">
+    <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <app-new-customer *ngIf="addNewCustomerFlag" [customer]="currentCustomer"  [itIsAddCustomer] = "itIsAddCustomer" (addNewCustomerFlagChange)="onChangedAddNewCustomerFlag($event)"></app-new-customer>
+                </div>
+            </div>
+            <div class="row" *ngIf="addNewCustomerFlag == false">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h4 class="card-title ">Customers </h4>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <button class="btn btn-info" (click)="onAddCustomer()" *ngIf="!addNewCustomerFlag" >Add Customer</button>
+                                        <button class="btn btn-info" (click)="getOldCustomers()" >Add OLD Customers</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-body">
+                                
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class=" text-primary">
+                                            <th>
+                                                NIP
+                                            </th>
+                                            <th>
+                                                nazwa
+                                            </th>
+                                            <th>
+                                                telefon 1
+                                            </th>
+                                            <th>
+                                                telefon 2
+                                            </th>
+                                            <th>
+                                            
+                                            </th>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let customer of customers">
+                                                <td>{{customer.NIP}}</td>
+                                                <td>{{customer.name}}</td>
+                                                <td>{{customer.telefon1}}</td>
+                                                <td>{{customer.telefon2}}</td>
+                                                <td>
+                                                    <button *ngIf="flagSelectCustomer == false" class="btn" (click)="onEditCustomer(customer)"><i class="material-icons">edit</i></button>
+                                                    <button *ngIf="flagSelectCustomer" class="btn" (click)="onSelectCustomer(customer)"><i class="material-icons">done_outline</i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>           
+    </div>
+</div>

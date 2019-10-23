@@ -1,0 +1,410 @@
+<div class="card">
+    <div class="card-header card-header-danger">
+        <div class="row">
+            <div class="col-6">
+                <h4 class="card-title ">Edycja danych kontrahenta</h4>
+            </div>
+
+            <div class="col-6 text-right">
+                <button class="btn btn-info" (click)="onCancelCustomer()">anuluj</button>
+                <button class="btn btn-info" (click)="onSaveCustomer()">zatwierdz</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Kontrahent</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <!-- <name></ -->
+                                    <input matInput [(ngModel)]="customer.name" placeholder="nazwa firmy">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <input matInput [(ngModel)]="customer.identyfikator" placeholder="Identyfikator">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <mat-form-field>
+                                    <mat-select placeholder="Prefiks UE" [(ngModel)]="customer.prefiksUE">
+                                        <mat-option value="">(wybierz)</mat-option>
+                                        <mat-option *ngFor="let payOption of kindPrefiksUE" value={{payOption.value}}>
+                                            {{payOption.message}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- IF add new customer -->
+                            <div class="col-md-8" *ngIf="itIsAddCustomer">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput [textMask]="{mask: NIPMask, guide: false}"
+                                                [(ngModel)]="customer.NIP" #nip placeholder="NIP">
+                                            <mat-hint align="end">{{nip.value.length}} / 10</mat-hint>
+                                        </mat-form-field>
+
+                                        <mat-error *ngIf="nip.value.length == 0"> NIP <strong>required</strong> field
+                                        </mat-error>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <button *ngIf="buttonGetCustomerNIPEnable" class="btn btn-info"
+                                            (click)="onGetCustomerNIP()">GET</button>
+                                        <div *ngIf="!buttonGetCustomerNIPEnable" class="spinner-border" role="status">
+                                            <span class="sr-only">Loading...</span></div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ELSE  -->
+                            <div class="col-md-8" *ngIf="!itIsAddCustomer">
+                                <div class="col-md-8">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput disabled [ngModel]="customer.NIP" #nip placeholder="NIP">
+                                        <mat-hint align="end">{{nip.value.length}} / 10</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-checkbox [(ngModel)]="customer.dostawca">Dostawca</mat-checkbox>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-checkbox [(ngModel)]="customer.odbiorca">Odbiorca</mat-checkbox>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-checkbox [(ngModel)]="customer.kontrahentJestOsobaFizyczna">Kontrahent jest osoba
+                                    fizyczna</mat-checkbox>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-checkbox [(ngModel)]="customer.zgodaNaOtrzymywanieEFaktur">Zgoda na otrzymywanie
+                                    e-faktur</mat-checkbox>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-checkbox [(ngModel)]="customer.zgodaNaPrzetwarzanieWCelachMarketingowych">Zgoda na
+                                    przetwarzanie w celach marketingowych</mat-checkbox>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+                            <div class="container">
+                                <div class="collapse navbar-collapse" id="navbarNav">
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item">
+                                            <button mat-button (click)="selectPageAdres=1"><ins
+                                                    *ngIf="selectPageAdres==1; else noIns1">Adres</ins>
+                                                <ng-template #noIns1>Adres</ng-template>
+                                            </button>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button mat-button (click)="selectPageAdres=2"><ins
+                                                    *ngIf="selectPageAdres==2; else noIns2">Adres korespondencyjny</ins>
+                                                <ng-template #noIns2>Adres korespondencyjny</ng-template>
+                                            </button>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button mat-button (click)="selectPageAdres=3"><ins
+                                                    *ngIf="selectPageAdres==3; else noIns3">Adres delivery</ins>
+                                                <ng-template #noIns3>Adres delivery</ng-template>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+
+                    </div>
+                    <div class="card-body">
+                        <!-- PAGE Adres -->
+                        <div *ngIf="selectPageAdres==1">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field>
+                                        <input matInput [(ngModel)]="customer.adres.ulicaNumer"
+                                            placeholder="Ulica, number">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-checkbox [(ngModel)]="customer.adres.adresZagraniczny">Adres zagraniczny
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput [textMask]="{mask: kodPocztowyMask, guide: false}" #kodPocztowy
+                                            [(ngModel)]="customer.adres.kodPocztowy" placeholder="Kod pocztowy">
+                                        <mat-hint align="end">{{kodPocztowy.value.length}} / 6</mat-hint>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="col-md-8">
+                                    <mat-form-field>
+                                        <input matInput [(ngModel)]="customer.adres.miejscowosc"
+                                            placeholder="Miejscowosc">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field>
+                                        <input matInput [(ngModel)]="customer.adres.kraj" placeholder="kraj">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <div *ngIf="selectPageAdres==2">
+                            <p> Page 2 </p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field>
+                                        <input matInput [(ngModel)]="customer.adresKorespondencyjny.ulicaNumer"
+                                            placeholder="Ulica, number">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-checkbox [(ngModel)]="customer.adresKorespondencyjny.adresZagraniczny">Adres
+                                        zagraniczny</mat-checkbox>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput [(ngModel)]="customer.adresKorespondencyjny.kodPocztowy"
+                                            placeholder="Kod pocztowy">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-8">
+                                    <mat-form-field>
+                                        <input matInput [(ngModel)]="customer.adresKorespondencyjny.miejscowosc"
+                                            placeholder="Miejscowosc">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field>
+                                        <input matInput [(ngModel)]="customer.adresKorespondencyjny.kraj"
+                                            placeholder="kraj">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- PAGE Adres delivery -->
+                        <div *ngIf="selectPageAdres==3">
+                            <p> Page 3 </p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field>
+                                        <input matInput [(ngModel)]="customer.adresDelivery.ulicaNumer"
+                                            placeholder="Ulica, number">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-checkbox [(ngModel)]="customer.adresDelivery.adresZagraniczny">Adres
+                                        zagraniczny</mat-checkbox>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <input matInput [(ngModel)]="customer.adresDelivery.kodPocztowy"
+                                            placeholder="Kod pocztowy">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-8">
+                                    <mat-form-field>
+                                        <input matInput [(ngModel)]="customer.adresDelivery.miejscowosc"
+                                            placeholder="Miejscowosc">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field>
+                                        <input matInput [(ngModel)]="customer.adresDelivery.kraj" placeholder="kraj">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Bank</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <mat-form-field>
+                            <input matInput [(ngModel)]="customer.numberKonta" placeholder="Number konta">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput [(ngModel)]="customer.nameBanku" placeholder="nazwa banku">
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+
+                        <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+                            <div class="container">
+                                <div class="collapse navbar-collapse" id="navbarNav">
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item">
+                                            <button mat-button (click)="selectPageKontakt=1"><ins
+                                                    *ngIf="selectPageKontakt==1; else noInsKot1">Kontakt 1</ins>
+                                                <ng-template #noInsKot1>Kontakt 1</ng-template>
+                                            </button>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button mat-button (click)="selectPageKontakt=2"><ins
+                                                    *ngIf="selectPageKontakt==2; else noInsKot2">Kontakt 2</ins>
+                                                <ng-template #noInsKot2>Kontakt 2</ng-template>
+                                            </button>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button mat-button (click)="selectPageKontakt=3"><ins
+                                                    *ngIf="selectPageKontakt==3; else noInsKot3">Uwagi</ins>
+                                                <ng-template #noInsKot3>Uwagi</ng-template>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="card-body">
+                        <div *ngIf="selectPageKontakt==1">
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="customer.telefon1" placeholder="Telefon 1">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="customer.telefon2" placeholder="Telefon 2">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="customer.fax" placeholder="Faks">
+                            </mat-form-field>
+
+                        </div>
+
+                        <div *ngIf="selectPageKontakt==2">
+
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="customer.skype" placeholder="Skype">
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="customer.adresEmail" placeholder="Adres e-mail">
+                            </mat-form-field>
+
+
+                            <mat-checkbox [(ngModel)]="customer.adresDelivery.wysylajFakturyNaObaAdresyEmail">Wysylaj
+                                faktury na oba adresy e-mail</mat-checkbox>
+
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="customer.emailFaktury" placeholder="e-mail (faktury)">
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="customer.www" placeholder="www">
+                            </mat-form-field>
+                        </div>
+
+                        <div *ngIf="selectPageKontakt==3">
+
+                            <mat-form-field>
+                                <textarea matInput [(ngModel)]="customer.uwagi" placeholder="Uwagi"></textarea>
+                            </mat-form-field>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
